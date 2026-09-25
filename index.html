@@ -11,12 +11,12 @@
 </head>
 <body>
   <p id="status">Carregando o Turbo Gol 3D…</p>
-  <script src="./game-payload.js"></script>
+  <script src="./game-payload.js?v=flip-orientation-v2"></script>
   <script>
     (async()=>{
       try{
         if(typeof DecompressionStream==='undefined') throw new Error('Este navegador não oferece descompressão gzip.');
-        const packed=atob(window.__TG3D_GZIP);
+        const packed=atob(await window.__TG3D_GZIP_READY);
         const bytes=Uint8Array.from(packed,c=>c.charCodeAt(0));
         const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
         const game=await new Response(stream).text();
