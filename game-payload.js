@@ -1,6 +1,6 @@
 window.__TG3D_GZIP_READY = Promise.all(Array.from({length:8},(_,i)=>{
   const id=String(i).padStart(2,'0');
-  return fetch(`./game-payload-${id}.txt?v=flip-orientation-v2`).then(response=>{
+  return fetch(`./game-payload-${id}.txt?v=second-jump-direction-v3`).then(response=>{
     if(!response.ok) throw new Error(`Payload part ${id} returned ${response.status}`);
     return response.text();
   }).then(text=>{
