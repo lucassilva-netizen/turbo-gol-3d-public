@@ -1,1 +1,33 @@
-<!doctype html>\n<html lang="pt-BR">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1">\n  <title>Turbo Gol 3D</title>\n  <style>\n    body{margin:0;min-height:100vh;display:grid;place-items:center;background:#070c18;color:#edf6ff;font:16px system-ui,sans-serif}\n    p{padding:18px 24px;border:1px solid #ffffff2b;border-radius:12px;background:#111b33}\n  </style>\n</head>\n<body>\n  <p id="status">Carregando o Turbo Gol 3D…</p>\n  <script src="./game-payload.js?v=car-ball-v1"></script>\n  <script src="./collision-patch.js?v=car-ball-v1"></script>\n  <script>\n    (async()=>{\n      try{\n        if(typeof DecompressionStream==='undefined') throw new Error('Este navegador não oferece descompressão gzip.');\n        const packed=atob(await window.__TG3D_GZIP_READY);\n        const bytes=Uint8Array.from(packed,c=>c.charCodeAt(0));\n        const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));\n        const game=await new Response(stream).text();\n        const updatedGame=window.__TG3D_PATCH_STANDARD_COLLISION(game);\n        document.open(); document.write(updatedGame); document.close();\n      }catch(error){\n        console.error('Falha ao abrir o Turbo Gol 3D:',error);\n        document.getElementById('status').textContent='Não foi possível carregar o jogo. Abra em uma versão recente do Chrome e confira a conexão.';\n      }\n    })();\n  </script>\n</body>\n</html>\n
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Turbo Gol 3D</title>
+  <style>
+    body{margin:0;min-height:100vh;display:grid;place-items:center;background:#070c18;color:#edf6ff;font:16px system-ui,sans-serif}
+    p{padding:18px 24px;border:1px solid #ffffff2b;border-radius:12px;background:#111b33}
+  </style>
+</head>
+<body>
+  <p id="status">Carregando o Turbo Gol 3D…</p>
+  <script src="./game-payload.js?v=car-ball-v1"></script>
+  <script src="./collision-patch.js?v=car-ball-v1"></script>
+  <script>
+    (async()=>{
+      try{
+        if(typeof DecompressionStream==='undefined') throw new Error('Este navegador não oferece descompressão gzip.');
+        const packed=atob(await window.__TG3D_GZIP_READY);
+        const bytes=Uint8Array.from(packed,c=>c.charCodeAt(0));
+        const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+        const game=await new Response(stream).text();
+        const updatedGame=window.__TG3D_PATCH_STANDARD_COLLISION(game);
+        document.open(); document.write(updatedGame); document.close();
+      }catch(error){
+        console.error('Falha ao abrir o Turbo Gol 3D:',error);
+        document.getElementById('status').textContent='Não foi possível carregar o jogo. Abra em uma versão recente do Chrome e confira a conexão.';
+      }
+    })();
+  </script>
+</body>
+</html>
