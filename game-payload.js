@@ -1,6 +1,6 @@
 const payloadPartIds=["00","01","02","03","04","05","06","07","08","09","10","11"];
 window.__TG3D_GZIP_READY = Promise.all(payloadPartIds.map(id=>{
-  return fetch(`./game-payload-${id}.txt?v=flip-collision-v8`).then(response=>{
+  return fetch(`./game-payload-${id}.txt?v=flip-collision-v8r1`).then(response=>{
     if(!response.ok) throw new Error(`Payload part ${id} returned ${response.status}`);
     return response.text();
   }).then(text=>{
