@@ -31,9 +31,11 @@ const standardCollision = String.raw`    function collideStandardCarBall(car) {
       const relativeNormal=((ball.vx-car.vx)*60)*worldNx+(ball.vy-car.vy)*worldNy+((ball.vz-car.vz)*60)*worldNz;
       if(relativeNormal>=-.02) return;
       const closingSpeed=-relativeNormal;
-      const impulse=closingSpeed*.22;
+      const impulse=closingSpeed*.40;
       ball.vx+=worldNx*impulse/60; ball.vy+=worldNy*impulse; ball.vz+=worldNz*impulse/60;
       const bs=Math.hypot(ball.vx,ball.vz); if(bs>3.2){ball.vx=ball.vx/bs*3.2;ball.vz=ball.vz/bs*3.2;}
+      const ballSpeed=Math.hypot(ball.vx*60,ball.vy,ball.vz*60), maxBallSpeed=24;
+      if(ballSpeed>maxBallSpeed) { const scale=maxBallSpeed/ballSpeed; ball.vx*=scale; ball.vy*=scale; ball.vz*=scale; }
       car.vx-=worldNx*.14; car.vz-=worldNz*.14; car.hitFlash=.12; ball.lastHit=car.team; ball.hitCooldown=.06;
     }`;
 window.__TG3D_PATCH_STANDARD_COLLISION=(html)=>{
